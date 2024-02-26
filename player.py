@@ -34,7 +34,6 @@ class Player(pygame.sprite.Sprite):
 		if self.attacking:
 			self.status = self.status.split('_')[0] + '_attack'
 
-
 	def import_assets(self,path):
 		self.animations = {}
 
