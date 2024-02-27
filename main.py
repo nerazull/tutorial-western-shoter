@@ -41,6 +41,8 @@ class Game:
 		self.monsters = pygame.sprite.Group()
 
 		self.setup()
+		self.music = pygame.mixer.Sound('sound/music.mp3')
+		self.music.play(loops = -1)
 
 	def create_bullet(self, pos, direction):
 		Bullet(pos, direction, self.bullet_surf, [self.all_sprites,self.bullets])

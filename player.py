@@ -63,6 +63,7 @@ class Player(Entity):
 			bullet_start_pos = self.rect.center + self.bullet_direction * 80
 			self.create_bullet(bullet_start_pos,self.bullet_direction)
 			self.bullet_shot = True
+			self.shoot_sound.play()
 
 		if self.frame_index >= len(current_animation):
 			self.frame_index = 0

@@ -32,6 +32,12 @@ class Entity(pygame.sprite.Sprite):
 		self.is_vulnerable = True
 		self.hit_time = None
 
+		# sound
+		self.hit_sound = pygame.mixer.Sound('sound/hit.mp3')
+		self.hit_sound.set_volume(0.5)
+		self.shoot_sound = pygame.mixer.Sound('sound/bullet.wav')
+		self.shoot_sound.set_volume(0.3)
+
 	def blink(self):
 		if not self.is_vulnerable:
 			if self.wave_value():
@@ -52,6 +58,7 @@ class Entity(pygame.sprite.Sprite):
 			self.health -= 1
 			self.is_vulnerable = False
 			self.hit_time = pygame.time.get_ticks()
+			self.hit_sound.play()
 
 	def check_death(self):
 		if self.health <= 0:
