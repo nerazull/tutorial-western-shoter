@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from pygame.math import Vector2 as vector
 from entity import Entity
 
@@ -71,6 +71,11 @@ class Player(Entity):
 
 		self.image = current_animation[int(self.frame_index)]
 
+	def check_death(self):
+		if self.health <= 0:
+			pygame.quit()
+			sys.exit()
+
 	def update(self,dt):
 		self.input()
 		self.get_status()
@@ -78,4 +83,4 @@ class Player(Entity):
 		self.animate(dt)
 
 		self.vulnerability_timer()
-		print(self.health)
+		self.check_death()
