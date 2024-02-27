@@ -1,6 +1,7 @@
 import pygame
 from pygame.math import Vector2 as vector
 from os import walk
+from math import sin
 
 class Entity(pygame.sprite.Sprite):
 	def __init__(self, pos, groups, path, collision_sprites):
@@ -21,6 +22,7 @@ class Entity(pygame.sprite.Sprite):
 		# collisions
 		self.hitbox = self.rect.inflate(-self.rect.width * 0.5,-self.rect.height / 2)
 		self.collision_sprites = collision_sprites
+		self.mask = pygame.mask.from_surface(self.image)
 
 		# attack
 		self.attacking = False
@@ -29,6 +31,21 @@ class Entity(pygame.sprite.Sprite):
 		self.health = 3
 		self.is_vulnerable = True
 		self.hit_time = None
+
+	def blink(self):
+		if not self.is_vulnerable:
+			if self.wave_value():
+				mask = pygame.mask.from_surface(self.image)
+				white_surf = mask.to_surface()
+				white_surf.set_colorkey((0,0,0))
+				self.image = white_surf
+
+	def wave_value(self):
+		value = sin(pygame.time.get_ticks())
+		if value >= 0:
+			return True
+		else:
+			return False
 
 	def damage(self):
 		if self.is_vulnerable:

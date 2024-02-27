@@ -73,6 +73,7 @@ class Coffin(Entity, Monster):
 				self.attacking = False
 
 		self.image = current_animation[int(self.frame_index)]
+		self.mask = pygame.mask.from_surface(self.image)
 
 	def update(self,dt):
 		self.face_player()
@@ -81,6 +82,7 @@ class Coffin(Entity, Monster):
 
 		self.move(dt)
 		self.animate(dt)
+		self.blink()
 		
 		self.check_death()
 		self.vulnerability_timer()
@@ -124,6 +126,7 @@ class Cactus(Entity, Monster):
 				self.attacking = False
 
 		self.image = current_animation[int(self.frame_index)]
+		self.mask = pygame.mask.from_surface(self.image)
 
 	def update(self,dt):
 		self.face_player()
@@ -132,6 +135,7 @@ class Cactus(Entity, Monster):
 
 		self.move(dt)
 		self.animate(dt)
-		
+		self.blink()
+
 		self.check_death()
 		self.vulnerability_timer()

@@ -70,6 +70,7 @@ class Player(Entity):
 				self.attacking = False
 
 		self.image = current_animation[int(self.frame_index)]
+		self.mask = pygame.mask.from_surface(self.image)
 
 	def check_death(self):
 		if self.health <= 0:
@@ -81,6 +82,7 @@ class Player(Entity):
 		self.get_status()
 		self.move(dt)
 		self.animate(dt)
+		self.blink()
 
 		self.vulnerability_timer()
 		self.check_death()

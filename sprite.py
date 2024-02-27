@@ -11,6 +11,7 @@ class Bullet(pygame.sprite.Sprite):
 	def __init__(self, pos, direction, surf, groups):
 		super().__init__(groups)
 		self.image = surf
+		self.mask = pygame.mask.from_surface(self.image)
 		self.rect = self.image.get_rect(center = pos)
 
 		# float based movement
