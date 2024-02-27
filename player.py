@@ -76,3 +76,6 @@ class Player(Entity):
 		self.get_status()
 		self.move(dt)
 		self.animate(dt)
+
+		self.vulnerability_timer()
+		print(self.health)

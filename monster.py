@@ -49,19 +49,35 @@ class Coffin(Entity, Monster):
 		self.notice_radius = 550
 		self.walk_radius = 400
 		self.attack_radius = 50
+	
+	def attack(self):
+		distance = self.get_player_distance_direction()[0]
+		if distance < self.attack_radius and not self.attacking:
+			self.attacking = True
+			self.frame_index = 0
+
+		if self.attacking:
+			self.status = self.status.split('_')[0] + '_attack'
 
 	def animate(self,dt):
 		current_animation = self.animations[self.status]
 
+		if int(self.frame_index) == 4 and self.attacking:
+			if self.get_player_distance_direction()[0] < self.attack_radius:
+				self.player.damage()
+
 		self.frame_index += 7 * dt
 		if self.frame_index >= len(current_animation):
 			self.frame_index = 0
+			if self.attacking:
+				self.attacking = False
 
 		self.image = current_animation[int(self.frame_index)]
 
 	def update(self,dt):
 		self.face_player()
 		self.walk_to_player()
+		self.attack()
 		self.move(dt)
 		self.animate(dt)
 
@@ -71,7 +87,7 @@ class Cactus(Entity, Monster):
 		self.player = player
 		self.notice_radius = 600
 		self.walk_radius = 500
-		self.attack_radius = 350
+		self.attack_radius = 50
 		self.speed = 90
 
 	def animate(self,dt):
